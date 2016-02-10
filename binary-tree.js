@@ -77,7 +77,7 @@ class BinaryTree {
 		var parent = null;
 		var childCount;
 		var change;
-		var changeParent;
+		var changeParent = null;
 
 		// Проверить есть ли данное значенени (которое необходимо удалить) в дереве
 		while(!find && current !==null){
@@ -174,7 +174,7 @@ class BinaryTree {
 							change = change.right;
 						}
                          // если это не первый узел слева
-                        if (changeParent !== undefined){
+                        if (changeParent !== null){
                             // удаляемым новый(на который хотим заменить предыдущий) узел с его предыдущей позиции
 							changeParent.right = change.left;
                             // и присваеваем всех детей старого узла
