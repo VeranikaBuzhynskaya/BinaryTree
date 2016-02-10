@@ -76,8 +76,8 @@ class BinaryTree {
 		var find = false;
 		var parent = null;
 		var childCount;
-		var change;
 		var changeParent = null;
+		var change;
 
 		// Проверить есть ли данное значенени (которое необходимо удалить) в дереве
 		while(!find && current !==null){
@@ -115,7 +115,7 @@ class BinaryTree {
 						break;
 					// Если есть двое детей
 					case 2:
-						//  присваиваем заменяемому узлу левого ребёнка корневого узла
+						// присваиваем заменяемому узлу левого ребёнка корневого узла
 						change = this.root.left;
 						// ищем самый правый узел в левой ветви
 						while(change.right !== null){
@@ -124,15 +124,18 @@ class BinaryTree {
 						}
 						 // если это не первый узел слева
 						if (changeParent !== null){
-							//удаляемым новый(на который хотим заменить предыдущий) узел с его предыдущей позиции
+							// если у самого правого узла левой ветви есть левый ребёнок, этот ребёнок
+							// становится правым ребёнком родителя самого правого элемента
 							changeParent.right = change.left;
-							// и присваеваем всех детей старого узла
+							// присваеваем всех детей старого(удаляемого)узла новому(заменяемому)узлу
 							change.right = this.root.right;
 							change.left = this.root.left;
 						} else {
 							change.right = this.root.right;
+							//если у первого слева узла есть левый ребёнок
+							this.root.left = change.left;
 						}
-                        // назначаем новый корень
+						//вставляем новый(заменяемый) узел на место старого(удаляемого) узла
 						this.root = change;
 						break;
 				}
@@ -167,6 +170,7 @@ class BinaryTree {
 						}
 						break;
 					case 2:
+						// присваиваем заменяемому узлу левого ребёнка корневого узла
 						change = current.left;
                         // ищем самый правый узел в левой ветви
 						while(change.right !== null){
@@ -175,14 +179,17 @@ class BinaryTree {
 						}
                          // если это не первый узел слева
                         if (changeParent !== null){
-                            // удаляемым новый(на который хотим заменить предыдущий) узел с его предыдущей позиции
+                            // если у самого правого узла левой ветви есть левый ребёнок, этот ребёнок
+							// становится правым ребёнком родителя самого правого элемента
 							changeParent.right = change.left;
-                            // и присваеваем всех детей старого узла
+                            // присваеваем всех детей старого(удаляемого)узла новому(заменяемому)узлу
 							change.right = current.right;
 							change.left = current.left;
                         }
                         else {
 							change.right = current.right;
+							// если у первого слева узла есть левый ребёнок
+							current.left = change.left;
                         }
 						// размещаем замену в правильном порядке
 						if (current.data < parent.data){
@@ -190,6 +197,7 @@ class BinaryTree {
 						}else{
 							parent.right = change;
 						}
+						// вставляем новый(заменяемый) узел на место старого(удаляемого) узла
                         current = change;
 						break;
 				}
